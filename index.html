@@ -333,13 +333,18 @@
           <input type="text" id="name" name="name" placeholder="請輸入姓名" required>
         </div>
         <div>
-          <label class="q-label" for="title">職稱 <span class="req">*</span></label>
-          <select id="title" name="title" required>
-            <option value="">選擇</option>
-            <option>加油員</option>
-            <option>洗車人員</option>
-            <option>咖啡銷售人員</option>
-          </select>
+          <label class="q-label">職稱 <span class="req">*</span></label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
+              <input type="radio" name="title" value="加油員" required style="width:18px;height:18px;accent-color:#1a73e8"> 加油員
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
+              <input type="radio" name="title" value="洗車人員" style="width:18px;height:18px;accent-color:#1a73e8"> 洗車人員
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
+              <input type="radio" name="title" value="咖啡銷售人員" style="width:18px;height:18px;accent-color:#1a73e8"> 咖啡銷售人員
+            </label>
+          </div>
         </div>
         <div>
           <label class="q-label" for="fillDate">填表日期 <span class="req">*</span></label>
@@ -601,7 +606,7 @@
     e.preventDefault();
 
     // Basic validation
-    var required = ['site', 'name', 'title', 'fillDate', 'age', 'seniority', 'height', 'weight'];
+    var required = ['site', 'name', 'fillDate', 'age', 'seniority', 'height', 'weight'];
     var valid = true;
     required.forEach(function(id) {
       var el = document.getElementById(id);
@@ -613,6 +618,10 @@
       }
     });
 
+    if (!document.querySelector('input[name="title"]:checked')) {
+      alert('請選擇職稱');
+      valid = false;
+    }
     if (!document.querySelector('input[name="dominant_hand"]:checked')) {
       alert('請選擇慣用手');
       valid = false;
