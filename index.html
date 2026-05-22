@@ -798,6 +798,9 @@
     });
   });
 
+  // Google Apps Script URL
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKQ1cAxKa3L5i_Y5Ia1vpkzX27gjfHIwXMgWwptn-91ctQ_vN6DtLvZIAMtGuZMGt-Zw/exec';
+
   // Form submission
   document.getElementById('mainForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -826,10 +829,49 @@
 
     if (!valid) return;
 
-    // Show success
-    document.getElementById('mainForm').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Disable submit button during sending
+    var submitBtn = document.querySelector('.btn-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送出中...';
+
+    // Collect all form data
+    var form = document.getElementById('mainForm');
+    var formData = new FormData(form);
+
+    // Build payload object
+    var payload = {};
+    formData.forEach(function(value, key) {
+      // Handle checkboxes (aid_type can be multiple)
+      if (key === 'aid_type') {
+        if (!payload[key]) payload[key] = [];
+        payload[key].push(value);
+      } else {
+        payload[key] = value;
+      }
+    });
+    // Join checkbox array to string
+    if (Array.isArray(payload['aid_type'])) {
+      payload['aid_type'] = payload['aid_type'].join('、');
+    }
+
+    // Send to Google Sheets via Apps Script
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      // Show success
+      document.getElementById('mainForm').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(function(err) {
+      alert('送出失敗，請檢查網路連線後再試一次。\n錯誤：' + err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = '提交';
+    });
   });
 
   function clearForm() {
