@@ -161,36 +161,44 @@
     @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
 
     /* Body part table */
-    .body-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
+    /* Body parts list - mobile friendly */
+    .body-list { display: flex; flex-direction: column; gap: 8px; }
+    .body-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f8fbff;
+      border-radius: 8px;
+      border: 1px solid #e8f0fe;
     }
-    .body-table th {
-      background: #e8f0fe;
-      color: #1a73e8;
-      padding: 10px 12px;
-      text-align: left;
-      font-weight: 600;
-      border-bottom: 2px solid #c5d8fc;
+    .body-row:hover { background: #eef4ff; }
+    .body-row-label {
+      font-size: 0.93rem;
+      color: #333;
+      font-weight: 500;
+      flex: 1;
     }
-    .body-table td {
-      padding: 9px 12px;
-      border-bottom: 1px solid #f0f0f0;
-      vertical-align: middle;
-    }
-    .body-table tr:last-child td { border-bottom: none; }
-    .body-table tr:hover td { background: #fafcff; }
-    .body-table select {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 5px 28px 5px 10px;
+    .body-row select {
+      border: 1px solid #c5d8fc;
+      border-radius: 6px;
+      padding: 7px 30px 7px 12px;
       background-color: #fff;
-      font-size: 0.88rem;
-      width: 100%;
-      min-width: 160px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: #333;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a73e8' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 10px;
+      cursor: pointer;
+      min-width: 80px;
+      outline: none;
     }
-    .body-table select:focus { border-color: #1a73e8; }
+    .body-row select:focus { border-color: #1a73e8; box-shadow: 0 0 0 2px #dbeafe; }
 
     /* Scale legend */
     .scale-legend {
@@ -328,18 +336,9 @@
           <label class="q-label" for="title">職稱 <span class="req">*</span></label>
           <select id="title" name="title" required>
             <option value="">選擇</option>
-            <option>工程師</option>
-            <option>資深工程師</option>
-            <option>主任工程師</option>
-            <option>技術員</option>
-            <option>組長</option>
-            <option>課長</option>
-            <option>經理</option>
-            <option>主任</option>
-            <option>副理</option>
-            <option>專員</option>
-            <option>助理</option>
-            <option>其他</option>
+            <option>加油員</option>
+            <option>洗車人員</option>
+            <option>咖啡銷售人員</option>
           </select>
         </div>
         <div>
@@ -521,229 +520,28 @@
         </div>
       </div>
 
-      <!-- Body parts table -->
+      <!-- Body parts list -->
       <div class="card">
-        <label class="q-label">請依序填寫各關節部位的活動尺度</label>
-        <table class="body-table">
-          <thead>
-            <tr>
-              <th>身體部位</th>
-              <th>活動尺度（0–5）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1. 頸部</td>
-              <td>
-                <select name="body_neck">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>2. 左肩</td>
-              <td>
-                <select name="body_left_shoulder">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>3. 左手肘／左前臂</td>
-              <td>
-                <select name="body_left_elbow">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>4. 左手／左手腕</td>
-              <td>
-                <select name="body_left_wrist">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>5. 左臀／左大腿</td>
-              <td>
-                <select name="body_left_hip">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>6. 左膝</td>
-              <td>
-                <select name="body_left_knee">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>7. 左腳／左腳踝</td>
-              <td>
-                <select name="body_left_ankle">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>8. 上背</td>
-              <td>
-                <select name="body_upper_back">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>9. 右肩</td>
-              <td>
-                <select name="body_right_shoulder">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>10. 右手肘／右前臂</td>
-              <td>
-                <select name="body_right_elbow">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>11. 下背</td>
-              <td>
-                <select name="body_lower_back">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>12. 右手／右手腕</td>
-              <td>
-                <select name="body_right_wrist">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>13. 右臀／右大腿</td>
-              <td>
-                <select name="body_right_hip">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>14. 右膝</td>
-              <td>
-                <select name="body_right_knee">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>15. 右腳／右腳踝</td>
-              <td>
-                <select name="body_right_ankle">
-                  <option value="">選擇</option>
-                  <option value="0">0 – 不痛，可自由活動</option>
-                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
-                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
-                  <option value="3">3 – 影響工作（只能活動一半）</option>
-                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
-                  <option value="5">5 – 完全無法自主活動</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <label class="q-label">請依序填寫各關節部位的活動尺度
+          <span style="font-size:0.82rem;font-weight:400;color:#777;display:block;margin-top:4px">（0＝不痛可自由活動　5＝完全無法自主活動）</span>
+        </label>
+        <div class="body-list">
+          <div class="body-row"><span class="body-row-label">1. 頸部</span><select name="body_neck"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">2. 左肩</span><select name="body_left_shoulder"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">3. 左手肘／左前臂</span><select name="body_left_elbow"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">4. 左手／左手腕</span><select name="body_left_wrist"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">5. 左臀／左大腿</span><select name="body_left_hip"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">6. 左膝</span><select name="body_left_knee"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">7. 左腳／左腳踝</span><select name="body_left_ankle"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">8. 上背</span><select name="body_upper_back"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">9. 右肩</span><select name="body_right_shoulder"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">10. 右手肘／右前臂</span><select name="body_right_elbow"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">11. 下背</span><select name="body_lower_back"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">12. 右手／右手腕</span><select name="body_right_wrist"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">13. 右臀／右大腿</span><select name="body_right_hip"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">14. 右膝</span><select name="body_right_knee"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+          <div class="body-row"><span class="body-row-label">15. 右腳／右腳踝</span><select name="body_right_ankle"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+        </div>
       </div>
 
       <!-- 其他症狀 -->
@@ -798,9 +596,6 @@
     });
   });
 
-  // Google Apps Script URL
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVYCSM4ZyMNFX66jNgcmv9Tx60uuU1PEdIygktYikv9hmZYNjcw77nAfpPTnmZ7bHBuQ/exec';
-
   // Form submission
   document.getElementById('mainForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -829,49 +624,10 @@
 
     if (!valid) return;
 
-    // Disable submit button during sending
-    var submitBtn = document.querySelector('.btn-submit');
-    submitBtn.disabled = true;
-    submitBtn.textContent = '送出中...';
-
-    // Collect all form data
-    var form = document.getElementById('mainForm');
-    var formData = new FormData(form);
-
-    // Build payload object
-    var payload = {};
-    formData.forEach(function(value, key) {
-      // Handle checkboxes (aid_type can be multiple)
-      if (key === 'aid_type') {
-        if (!payload[key]) payload[key] = [];
-        payload[key].push(value);
-      } else {
-        payload[key] = value;
-      }
-    });
-    // Join checkbox array to string
-    if (Array.isArray(payload['aid_type'])) {
-      payload['aid_type'] = payload['aid_type'].join('、');
-    }
-
-    // Send to Google Sheets via Apps Script
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(function() {
-      // Show success
-      document.getElementById('mainForm').style.display = 'none';
-      document.getElementById('success-msg').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    })
-    .catch(function(err) {
-      alert('送出失敗，請檢查網路連線後再試一次。\n錯誤：' + err.message);
-      submitBtn.disabled = false;
-      submitBtn.textContent = '提交';
-    });
+    // Show success
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   function clearForm() {
