@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>建昇科技有限公司健康保護-肌肉骨骼症狀問卷</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    .page-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Header card */
+    .header-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 16px;
+      border-top: 8px solid #1a73e8;
+    }
+    .header-card-body { padding: 28px 32px 24px; }
+    .header-card h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #202124;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .header-card p {
+      font-size: 0.92rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .required-note {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #d93025;
+    }
+
+    /* Question card */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      padding: 22px 28px;
+      margin-bottom: 14px;
+    }
+    .card.section-header {
+      border-left: 5px solid #1a73e8;
+      background: #f8faff;
+    }
+    .card.section-header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a73e8;
+    }
+    .card.section-header p {
+      font-size: 0.87rem;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    label.q-label {
+      display: block;
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: #202124;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    label.q-label .req { color: #d93025; margin-left: 3px; }
+    label.q-label .hint {
+      display: block;
+      font-size: 0.83rem;
+      font-weight: 400;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    /* Text inputs */
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #bbb;
+      padding: 8px 2px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: transparent;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      border-bottom-color: #1a73e8;
+    }
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 10px;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+    textarea {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 90px;
+    }
+    textarea:focus { border-color: #1a73e8; }
+
+    /* Radio & Checkbox */
+    .options-group { display: flex; flex-direction: column; gap: 10px; }
+    .options-group.inline { flex-direction: row; flex-wrap: wrap; gap: 14px; }
+
+    .opt-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .opt-item input[type="radio"],
+    .opt-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1a73e8;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Two-column grid for basic info */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+    }
+    @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* Body part table */
+    .body-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .body-table th {
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #c5d8fc;
+    }
+    .body-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+    .body-table tr:last-child td { border-bottom: none; }
+    .body-table tr:hover td { background: #fafcff; }
+    .body-table select {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px 28px 5px 10px;
+      background-color: #fff;
+      font-size: 0.88rem;
+      width: 100%;
+      min-width: 160px;
+    }
+    .body-table select:focus { border-color: #1a73e8; }
+
+    /* Scale legend */
+    .scale-legend {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+      margin-bottom: 16px;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+    .scale-legend .sl-item {
+      padding: 6px 4px;
+      border-radius: 6px;
+      line-height: 1.3;
+    }
+    .sl-0 { background: #e6ffe6; color: #2a7a2a; }
+    .sl-1 { background: #d4edda; color: #155724; }
+    .sl-2 { background: #fff3cd; color: #856404; }
+    .sl-3 { background: #ffe0b2; color: #bf5000; }
+    .sl-4 { background: #ffccbc; color: #b71c1c; }
+    .sl-5 { background: #ffcdd2; color: #8b0000; }
+    .sl-num { font-weight: 700; font-size: 1rem; }
+
+    /* Body diagram SVG area */
+    .body-diagram {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0 20px;
+    }
+    .body-diagram svg { max-width: 100%; height: auto; }
+
+    /* Alert/info box */
+    .info-box {
+      background: #fff8e1;
+      border-left: 4px solid #f9a825;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: #5d4037;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    /* Hidden section */
+    .conditional-section { display: none; }
+    .conditional-section.visible { display: block; }
+
+    /* Submit area */
+    .submit-area {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 24px;
+      padding: 0 4px;
+    }
+    .btn-submit {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 36px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { background: #1557b0; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-clear {
+      background: transparent;
+      color: #1a73e8;
+      border: 1px solid #1a73e8;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-clear:hover { background: #e8f0fe; }
+
+    /* Success message */
+    #success-msg {
+      display: none;
+      background: #e6f4ea;
+      border: 1px solid #b7dfbf;
+      border-radius: 10px;
+      padding: 28px;
+      text-align: center;
+      color: #2e7d32;
+      font-size: 1.05rem;
+      margin-top: 20px;
+    }
+    #success-msg h2 { font-size: 1.4rem; margin-bottom: 8px; }
+
+    /* Print */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .btn-submit, .btn-clear { display: none; }
+      .card { box-shadow: none; border: 1px solid #ddd; }
+    }
+
+    .divider { height: 1px; background: #eee; margin: 8px 0 16px; }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="header-card-body">
+      <h1>建昇科技有限公司<br>健康保護－肌肉骨骼症狀問卷</h1>
+      <p>本問卷依據人因性危害預防設計，填答結果僅供內部健康管理使用，請依照您近期的實際感受，選擇最符合的選項。</p>
+      <p class="required-note">* 表示必填問題</p>
+    </div>
+  </div>
+
+  <form id="mainForm" novalidate>
+
+    <!-- ── 基本資料 ── -->
+    <div class="card section-header">
+      <h2>基本資料</h2>
+    </div>
+
+    <div class="card">
+      <div class="grid-2">
+        <div>
+          <label class="q-label" for="site">站名 <span class="req">*</span></label>
+          <input type="text" id="site" name="site" placeholder="請輸入站名" required>
+        </div>
+        <div>
+          <label class="q-label" for="name">姓名 <span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="請輸入姓名" required>
+        </div>
+        <div>
+          <label class="q-label" for="title">職稱 <span class="req">*</span></label>
+          <select id="title" name="title" required>
+            <option value="">選擇</option>
+            <option>工程師</option>
+            <option>資深工程師</option>
+            <option>主任工程師</option>
+            <option>技術員</option>
+            <option>組長</option>
+            <option>課長</option>
+            <option>經理</option>
+            <option>主任</option>
+            <option>副理</option>
+            <option>專員</option>
+            <option>助理</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div>
+          <label class="q-label" for="fillDate">填表日期 <span class="req">*</span></label>
+          <input type="date" id="fillDate" name="fillDate" required>
+        </div>
+        <div>
+          <label class="q-label" for="age">年齡（歲）<span class="req">*</span></label>
+          <input type="number" id="age" name="age" min="16" max="80" placeholder="請輸入年齡" required>
+        </div>
+        <div>
+          <label class="q-label" for="seniority">在本公司的工作年資（年）<span class="req">*</span></label>
+          <input type="number" id="seniority" name="seniority" min="0" max="60" placeholder="請輸入年資" required>
+        </div>
+        <div>
+          <label class="q-label" for="height">身高（公分）<span class="req">*</span></label>
+          <input type="number" id="height" name="height" min="100" max="220" placeholder="例如：165" required>
+        </div>
+        <div>
+          <label class="q-label" for="weight">體重（公斤）<span class="req">*</span></label>
+          <input type="number" id="weight" name="weight" min="30" max="200" placeholder="例如：65" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- 慣用手 -->
+    <div class="card">
+      <label class="q-label">慣用手 <span class="req">*</span></label>
+      <div class="options-group inline">
+        <label class="opt-item">
+          <input type="radio" name="dominant_hand" value="左手" required> 左手
+        </label>
+        <label class="opt-item">
+          <input type="radio" name="dominant_hand" value="右手"> 右手
+        </label>
+      </div>
+    </div>
+
+    <!-- ── 症狀篩查 ── -->
+    <div class="card section-header">
+      <h2>症狀篩查</h2>
+    </div>
+
+    <!-- 是否有不適 -->
+    <div class="card">
+      <label class="q-label">
+        您在過去的1年內，身體是否有長達2星期以上的疲勞、酸痛、發麻、刺痛等不舒服，或關節活動受到限制？<span class="req">*</span>
+        <span class="hint">若否，結束此調查表，可直接點選「提交」送出；若是，請繼續填寫下列表格</span>
+      </label>
+      <div class="options-group inline">
+        <label class="opt-item">
+          <input type="radio" name="has_symptom" value="是" id="sym_yes" required> 是
+        </label>
+        <label class="opt-item">
+          <input type="radio" name="has_symptom" value="否" id="sym_no"> 否
+        </label>
+      </div>
+    </div>
+
+    <!-- ── 條件顯示區域（有症狀才顯示）── -->
+    <div id="symptomSection" class="conditional-section">
+
+      <!-- 持續時間 -->
+      <div class="card">
+        <label class="q-label">身體部位酸痛、不適或影響關節活動之情形持多久時間？</label>
+        <div class="options-group">
+          <label class="opt-item"><input type="radio" name="duration" value="1個月"> 1個月</label>
+          <label class="opt-item"><input type="radio" name="duration" value="3個月"> 3個月</label>
+          <label class="opt-item"><input type="radio" name="duration" value="6個月"> 6個月</label>
+          <label class="opt-item"><input type="radio" name="duration" value="1年"> 1年</label>
+          <label class="opt-item"><input type="radio" name="duration" value="3年"> 3年</label>
+          <label class="opt-item"><input type="radio" name="duration" value="3年以上"> 3年以上</label>
+        </div>
+      </div>
+
+      <!-- 是否就醫 -->
+      <div class="card">
+        <label class="q-label">是否有就醫？</label>
+        <div class="options-group inline">
+          <label class="opt-item"><input type="radio" name="see_doctor" value="是"> 是</label>
+          <label class="opt-item"><input type="radio" name="see_doctor" value="否"> 否</label>
+        </div>
+      </div>
+
+      <!-- 是否使用輔助用品 -->
+      <div class="card">
+        <label class="q-label">是否有使用止痛藥物或輔助用品（護腰、護膝等）？</label>
+        <div class="options-group inline">
+          <label class="opt-item"><input type="radio" name="use_aid" value="否" id="aid_no"> 否</label>
+          <label class="opt-item"><input type="radio" name="use_aid" value="是" id="aid_yes"> 是</label>
+        </div>
+      </div>
+
+      <!-- 使用哪種輔助用品 -->
+      <div id="aidTypeSection" class="conditional-section">
+        <div class="card">
+          <label class="q-label">使用哪種輔助用品？<span class="hint">可複選</span></label>
+          <div class="options-group">
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="止痛藥"> 止痛藥</label>
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="酸痛貼布"> 酸痛貼布</label>
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="護腕"> 護腕</label>
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="護腰"> 護腰</label>
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="護膝"> 護膝</label>
+            <label class="opt-item"><input type="checkbox" name="aid_type" value="其他"> 其他</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 身體關節部位活動尺度 ── -->
+      <div class="card section-header">
+        <h2>身體關節部位活動尺度</h2>
+        <p>請依序填寫各身體部位的活動尺度（0＝不痛可自由活動，5＝完全無法自主活動）</p>
+      </div>
+
+      <!-- 圖示1 說明 -->
+      <div class="card">
+        <label class="q-label">圖示1．身體活動容忍尺度與關節活動範圍</label>
+        <div class="scale-legend">
+          <div class="sl-item sl-0"><div class="sl-num">0</div>不痛<br>可自由活動</div>
+          <div class="sl-item sl-1"><div class="sl-num">1</div>可以忍痛<br>到極限會酸痛</div>
+          <div class="sl-item sl-2"><div class="sl-num">2</div>可能影響工作<br>超過一半會酸痛</div>
+          <div class="sl-item sl-3"><div class="sl-num">3</div>影響工作<br>只能活動一半</div>
+          <div class="sl-item sl-4"><div class="sl-num">4</div>影響自主活動能力<br>只能活動四分之一</div>
+          <div class="sl-item sl-5"><div class="sl-num">5</div>完全無法<br>自主活動</div>
+        </div>
+
+        <!-- 圖示2 身體部位 (SVG示意圖) -->
+        <label class="q-label" style="margin-top:16px">圖示2．身體關節部位</label>
+        <div class="body-diagram">
+          <svg viewBox="0 0 400 460" width="400" xmlns="http://www.w3.org/2000/svg" style="border:1px solid #e0e0e0; border-radius:8px; background:#fafafa; padding:8px;">
+            <!-- Head -->
+            <ellipse cx="200" cy="52" rx="28" ry="32" fill="#f5d5b0" stroke="#999" stroke-width="1.5"/>
+            <!-- Neck -->
+            <rect x="190" y="82" width="20" height="20" rx="4" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Torso -->
+            <rect x="155" y="102" width="90" height="120" rx="10" fill="#d0e8ff" stroke="#999" stroke-width="1.5"/>
+            <!-- Left Arm upper -->
+            <rect x="115" y="105" width="38" height="22" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(10 134 116)"/>
+            <!-- Left forearm -->
+            <rect x="95" y="140" width="34" height="18" rx="7" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(20 112 149)"/>
+            <!-- Left hand -->
+            <ellipse cx="88" cy="170" rx="14" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Right Arm upper -->
+            <rect x="247" y="105" width="38" height="22" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(-10 266 116)"/>
+            <!-- Right forearm -->
+            <rect x="271" y="140" width="34" height="18" rx="7" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(-20 288 149)"/>
+            <!-- Right hand -->
+            <ellipse cx="312" cy="170" rx="14" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Left leg upper -->
+            <rect x="158" y="222" width="36" height="80" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Left leg lower -->
+            <rect x="158" y="310" width="34" height="76" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Left foot -->
+            <ellipse cx="172" cy="396" rx="18" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Right leg upper -->
+            <rect x="206" y="222" width="36" height="80" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Right leg lower -->
+            <rect x="208" y="310" width="34" height="76" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+            <!-- Right foot -->
+            <ellipse cx="228" cy="396" rx="18" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
+
+            <!-- Labels -->
+            <text x="200" y="42" text-anchor="middle" font-size="11" fill="#333" font-weight="600">頸部</text>
+            <text x="106" y="108" text-anchor="middle" font-size="10" fill="#1a73e8" font-weight="600">左肩</text>
+            <text x="294" y="108" text-anchor="middle" font-size="10" fill="#1a73e8" font-weight="600">右肩</text>
+            <text x="200" y="130" text-anchor="middle" font-size="10" fill="#555">上背</text>
+            <text x="200" y="185" text-anchor="middle" font-size="10" fill="#555">下背</text>
+            <text x="88" y="145" text-anchor="middle" font-size="10" fill="#1a73e8">左手肘<tspan x="88" dy="11">左前臂</tspan></text>
+            <text x="312" y="145" text-anchor="middle" font-size="10" fill="#1a73e8">右手肘<tspan x="312" dy="11">右前臂</tspan></text>
+            <text x="75" y="175" text-anchor="middle" font-size="10" fill="#1a73e8">左手<tspan x="75" dy="11">左手腕</tspan></text>
+            <text x="325" y="175" text-anchor="middle" font-size="10" fill="#1a73e8">右手<tspan x="325" dy="11">右手腕</tspan></text>
+            <text x="145" y="245" text-anchor="middle" font-size="10" fill="#1a73e8">左臀<tspan x="145" dy="11">左大腿</tspan></text>
+            <text x="255" y="245" text-anchor="middle" font-size="10" fill="#1a73e8">右臀<tspan x="255" dy="11">右大腿</tspan></text>
+            <text x="140" y="345" text-anchor="middle" font-size="10" fill="#1a73e8">左膝</text>
+            <text x="260" y="345" text-anchor="middle" font-size="10" fill="#1a73e8">右膝</text>
+            <text x="145" y="400" text-anchor="middle" font-size="10" fill="#1a73e8">左腳<tspan x="145" dy="11">左腳踝</tspan></text>
+            <text x="255" y="400" text-anchor="middle" font-size="10" fill="#1a73e8">右腳<tspan x="255" dy="11">右腳踝</tspan></text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Body parts table -->
+      <div class="card">
+        <label class="q-label">請依序填寫各關節部位的活動尺度</label>
+        <table class="body-table">
+          <thead>
+            <tr>
+              <th>身體部位</th>
+              <th>活動尺度（0–5）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. 頸部</td>
+              <td>
+                <select name="body_neck">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>2. 左肩</td>
+              <td>
+                <select name="body_left_shoulder">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>3. 左手肘／左前臂</td>
+              <td>
+                <select name="body_left_elbow">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>4. 左手／左手腕</td>
+              <td>
+                <select name="body_left_wrist">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>5. 左臀／左大腿</td>
+              <td>
+                <select name="body_left_hip">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>6. 左膝</td>
+              <td>
+                <select name="body_left_knee">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>7. 左腳／左腳踝</td>
+              <td>
+                <select name="body_left_ankle">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>8. 上背</td>
+              <td>
+                <select name="body_upper_back">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>9. 右肩</td>
+              <td>
+                <select name="body_right_shoulder">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>10. 右手肘／右前臂</td>
+              <td>
+                <select name="body_right_elbow">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>11. 下背</td>
+              <td>
+                <select name="body_lower_back">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>12. 右手／右手腕</td>
+              <td>
+                <select name="body_right_wrist">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>13. 右臀／右大腿</td>
+              <td>
+                <select name="body_right_hip">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>14. 右膝</td>
+              <td>
+                <select name="body_right_knee">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>15. 右腳／右腳踝</td>
+              <td>
+                <select name="body_right_ankle">
+                  <option value="">選擇</option>
+                  <option value="0">0 – 不痛，可自由活動</option>
+                  <option value="1">1 – 可以忍痛（到極限會酸痛）</option>
+                  <option value="2">2 – 可能影響工作（超過一半會酸痛）</option>
+                  <option value="3">3 – 影響工作（只能活動一半）</option>
+                  <option value="4">4 – 影響自主活動能力（只能活動四分之一）</option>
+                  <option value="5">5 – 完全無法自主活動</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 其他症狀 -->
+      <div class="card">
+        <label class="q-label" for="other_symptoms">其他症狀／病史說明</label>
+        <textarea id="other_symptoms" name="other_symptoms" placeholder="請輸入其他症狀或病史說明（選填）"></textarea>
+      </div>
+
+    </div><!-- end symptomSection -->
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button type="submit" class="btn-submit">提交</button>
+      <button type="button" class="btn-clear" onclick="clearForm()">清除表單</button>
+    </div>
+
+  </form>
+
+  <!-- Success -->
+  <div id="success-msg">
+    <h2>✓ 問卷已成功提交</h2>
+    <p>感謝您填寫本問卷，您的回覆已完成送出。</p>
+  </div>
+
+</div><!-- end page-wrapper -->
+
+<script>
+  // Set today's date as default
+  document.getElementById('fillDate').valueAsDate = new Date();
+
+  // Show/hide symptom section based on has_symptom
+  document.querySelectorAll('input[name="has_symptom"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      var section = document.getElementById('symptomSection');
+      if (this.value === '是') {
+        section.classList.add('visible');
+      } else {
+        section.classList.remove('visible');
+      }
+    });
+  });
+
+  // Show/hide aid type based on use_aid
+  document.querySelectorAll('input[name="use_aid"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      var section = document.getElementById('aidTypeSection');
+      if (this.value === '是') {
+        section.classList.add('visible');
+      } else {
+        section.classList.remove('visible');
+      }
+    });
+  });
+
+  // Form submission
+  document.getElementById('mainForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Basic validation
+    var required = ['site', 'name', 'title', 'fillDate', 'age', 'seniority', 'height', 'weight'];
+    var valid = true;
+    required.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderBottomColor = '#d93025';
+        valid = false;
+      } else {
+        el.style.borderBottomColor = '';
+      }
+    });
+
+    if (!document.querySelector('input[name="dominant_hand"]:checked')) {
+      alert('請選擇慣用手');
+      valid = false;
+    }
+    if (!document.querySelector('input[name="has_symptom"]:checked')) {
+      alert('請回答過去1年內是否有不適症狀');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Show success
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function clearForm() {
+    if (confirm('確定要清除所有填寫內容嗎？')) {
+      document.getElementById('mainForm').reset();
+      document.getElementById('symptomSection').classList.remove('visible');
+      document.getElementById('aidTypeSection').classList.remove('visible');
+      document.getElementById('fillDate').valueAsDate = new Date();
+      // Reset border colors
+      document.querySelectorAll('input, select').forEach(function(el) {
+        el.style.borderBottomColor = '';
+      });
+    }
+  }
+</script>
+</body>
+</html>
