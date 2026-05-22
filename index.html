@@ -160,45 +160,65 @@
     }
     @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
 
-    /* Body part table */
-    /* Body parts list - mobile friendly */
-    .body-list { display: flex; flex-direction: column; gap: 8px; }
-    .body-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 14px;
+    /* Body parts - button style */
+    .body-list { display: flex; flex-direction: column; gap: 12px; }
+    .body-part-card {
       background: #f8fbff;
-      border-radius: 8px;
       border: 1px solid #e8f0fe;
+      border-radius: 10px;
+      padding: 12px 14px;
     }
-    .body-row:hover { background: #eef4ff; }
-    .body-row-label {
-      font-size: 0.93rem;
-      color: #333;
-      font-weight: 500;
+    .body-part-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1a73e8;
+      margin-bottom: 10px;
+    }
+    .body-btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .body-btn-group label {
       flex: 1;
-    }
-    .body-row select {
-      border: 1px solid #c5d8fc;
-      border-radius: 6px;
-      padding: 7px 30px 7px 12px;
-      background-color: #fff;
-      font-size: 0.92rem;
-      font-family: inherit;
-      color: #333;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a73e8' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 10px;
+      min-width: 44px;
       cursor: pointer;
-      min-width: 80px;
-      outline: none;
     }
-    .body-row select:focus { border-color: #1a73e8; box-shadow: 0 0 0 2px #dbeafe; }
+    .body-btn-group input[type="radio"] { display: none; }
+    .body-btn-group .btn-face {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 4px 6px;
+      border: 2px solid #d0e2ff;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #555;
+      line-height: 1.2;
+      transition: all .15s;
+      text-align: center;
+    }
+    .body-btn-group .btn-hint {
+      font-size: 0.6rem;
+      font-weight: 400;
+      color: #999;
+      margin-top: 2px;
+    }
+    .body-btn-group input[type="radio"]:checked + .btn-face {
+      background: #1a73e8;
+      border-color: #1a73e8;
+      color: #fff;
+    }
+    .body-btn-group input[type="radio"]:checked + .btn-face .btn-hint {
+      color: #c8dcff;
+    }
+    .body-btn-group label:hover .btn-face {
+      border-color: #1a73e8;
+      background: #e8f0fe;
+    }
 
     /* Scale legend */
     .scale-legend {
@@ -525,27 +545,193 @@
         </div>
       </div>
 
-      <!-- Body parts list -->
+      <!-- Body parts button style -->
       <div class="card">
         <label class="q-label">請依序填寫各關節部位的活動尺度
-          <span style="font-size:0.82rem;font-weight:400;color:#777;display:block;margin-top:4px">（0＝不痛可自由活動　5＝完全無法自主活動）</span>
+          <span style="font-size:0.82rem;font-weight:400;color:#777;display:block;margin-top:4px">點選數字：0＝不痛　1＝輕微　2＝可能影響工作　3＝影響工作　4＝影響自主活動　5＝無法活動</span>
         </label>
         <div class="body-list">
-          <div class="body-row"><span class="body-row-label">1. 頸部</span><select name="body_neck"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">2. 左肩</span><select name="body_left_shoulder"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">3. 左手肘／左前臂</span><select name="body_left_elbow"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">4. 左手／左手腕</span><select name="body_left_wrist"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">5. 左臀／左大腿</span><select name="body_left_hip"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">6. 左膝</span><select name="body_left_knee"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">7. 左腳／左腳踝</span><select name="body_left_ankle"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">8. 上背</span><select name="body_upper_back"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">9. 右肩</span><select name="body_right_shoulder"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">10. 右手肘／右前臂</span><select name="body_right_elbow"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">11. 下背</span><select name="body_lower_back"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">12. 右手／右手腕</span><select name="body_right_wrist"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">13. 右臀／右大腿</span><select name="body_right_hip"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">14. 右膝</span><select name="body_right_knee"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
-          <div class="body-row"><span class="body-row-label">15. 右腳／右腳踝</span><select name="body_right_ankle"><option value="">選擇</option><option value="0">0 不痛</option><option value="1">1 輕微</option><option value="2">2 可能影響工作</option><option value="3">3 影響工作</option><option value="4">4 影響自主活動</option><option value="5">5 無法活動</option></select></div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">1. 頸部</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_neck" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_neck" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_neck" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_neck" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_neck" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_neck" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">2. 左肩</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_shoulder" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_shoulder" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_shoulder" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_shoulder" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_shoulder" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_shoulder" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">3. 左手肘／左前臂</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_elbow" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_elbow" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_elbow" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_elbow" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_elbow" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_elbow" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">4. 左手／左手腕</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_wrist" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_wrist" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_wrist" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_wrist" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_wrist" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_wrist" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">5. 左臀／左大腿</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_hip" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_hip" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_hip" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_hip" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_hip" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_hip" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">6. 左膝</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_knee" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_knee" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_knee" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_knee" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_knee" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_knee" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">7. 左腳／左腳踝</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_left_ankle" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_left_ankle" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_left_ankle" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_ankle" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_left_ankle" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_left_ankle" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">8. 上背</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_upper_back" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_upper_back" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_upper_back" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_upper_back" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_upper_back" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_upper_back" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">9. 右肩</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_shoulder" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_shoulder" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_shoulder" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_shoulder" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_shoulder" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_shoulder" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">10. 右手肘／右前臂</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_elbow" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_elbow" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_elbow" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_elbow" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_elbow" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_elbow" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">11. 下背</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_lower_back" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_lower_back" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_lower_back" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_lower_back" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_lower_back" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_lower_back" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">12. 右手／右手腕</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_wrist" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_wrist" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_wrist" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_wrist" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_wrist" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_wrist" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">13. 右臀／右大腿</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_hip" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_hip" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_hip" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_hip" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_hip" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_hip" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">14. 右膝</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_knee" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_knee" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_knee" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_knee" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_knee" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_knee" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
+          <div class="body-part-card">
+            <div class="body-part-name">15. 右腳／右腳踝</div>
+            <div class="body-btn-group">
+              <label><input type="radio" name="body_right_ankle" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
+              <label><input type="radio" name="body_right_ankle" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
+              <label><input type="radio" name="body_right_ankle" value="2"><div class="btn-face">2<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_ankle" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
+              <label><input type="radio" name="body_right_ankle" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
+              <label><input type="radio" name="body_right_ankle" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
+            </div>
+          </div>
+
         </div>
       </div>
 
