@@ -3,847 +3,714 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>建昇科技有限公司健康保護-肌肉骨骼症狀問卷</title>
+  <title>建昇科技有限公司－過勞量表問卷</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
       background: #f0f4f8;
-      color: #333;
+      color: #222;
       min-height: 100vh;
       padding: 24px 16px 60px;
     }
 
-    .page-wrapper {
-      max-width: 720px;
-      margin: 0 auto;
-    }
+    .page { max-width: 780px; margin: 0 auto; }
 
-    /* Header card */
+    /* ── Header ── */
     .header-card {
       background: #fff;
       border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 16px;
-      border-top: 8px solid #1a73e8;
+      border-top: 8px solid #c0392b;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 28px 32px 24px;
+      margin-bottom: 18px;
+      text-align: center;
     }
-    .header-card-body { padding: 28px 32px 24px; }
     .header-card h1 {
-      font-size: 1.7rem;
+      font-size: 1.55rem;
       font-weight: 700;
-      color: #202124;
-      line-height: 1.4;
-      margin-bottom: 12px;
+      color: #1a1a1a;
+      margin-bottom: 20px;
     }
-    .header-card p {
-      font-size: 0.92rem;
-      color: #555;
-      line-height: 1.6;
+    .info-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      justify-content: center;
     }
-    .required-note {
-      margin-top: 16px;
-      font-size: 0.85rem;
-      color: #d93025;
-    }
-
-    /* Question card */
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-      padding: 22px 28px;
-      margin-bottom: 14px;
-    }
-    .card.section-header {
-      border-left: 5px solid #1a73e8;
-      background: #f8faff;
-    }
-    .card.section-header h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a73e8;
-    }
-    .card.section-header p {
-      font-size: 0.87rem;
-      color: #666;
-      margin-top: 6px;
-    }
-
-    label.q-label {
-      display: block;
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: #202124;
-      margin-bottom: 12px;
-      line-height: 1.5;
-    }
-    label.q-label .req { color: #d93025; margin-left: 3px; }
-    label.q-label .hint {
-      display: block;
-      font-size: 0.83rem;
-      font-weight: 400;
-      color: #777;
-      margin-top: 4px;
-    }
-
-    /* Text inputs */
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select,
-    textarea {
-      width: 100%;
+    .info-field { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+    .info-field label { font-weight: 600; white-space: nowrap; }
+    .info-field input {
       border: none;
-      border-bottom: 1px solid #bbb;
-      padding: 8px 2px;
+      border-bottom: 1.5px solid #aaa;
+      padding: 4px 8px;
       font-size: 0.95rem;
       font-family: inherit;
       background: transparent;
-      color: #333;
       outline: none;
-      transition: border-color 0.2s;
+      width: 120px;
+      transition: border-color .2s;
     }
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    input[type="date"]:focus,
-    select:focus,
-    textarea:focus {
-      border-bottom-color: #1a73e8;
-    }
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 10px;
-      padding-right: 28px;
-      cursor: pointer;
-    }
-    textarea {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 10px 12px;
-      resize: vertical;
-      min-height: 90px;
-    }
-    textarea:focus { border-color: #1a73e8; }
-
-    /* Radio & Checkbox */
-    .options-group { display: flex; flex-direction: column; gap: 10px; }
-    .options-group.inline { flex-direction: row; flex-wrap: wrap; gap: 14px; }
-
-    .opt-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
+    .info-field input:focus { border-bottom-color: #c0392b; }
+    .date-group { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; }
+    .date-group input[type="number"] {
+      border: none;
+      border-bottom: 1.5px solid #aaa;
+      padding: 4px 4px;
       font-size: 0.95rem;
-      color: #333;
+      font-family: inherit;
+      background: transparent;
+      outline: none;
+      text-align: center;
+      transition: border-color .2s;
     }
-    .opt-item input[type="radio"],
-    .opt-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #1a73e8;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+    .date-group input[type="number"]:focus { border-bottom-color: #c0392b; }
+    .date-group .y { width: 72px; }
+    .date-group .md { width: 48px; }
 
-    /* Two-column grid for basic info */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px 28px;
-    }
-    @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
-
-    /* Body parts - button style */
-    .body-list { display: flex; flex-direction: column; gap: 12px; }
-    .body-part-card {
-      background: #f8fbff;
-      border: 1px solid #e8f0fe;
-      border-radius: 10px;
-      padding: 12px 14px;
-    }
-    .body-part-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #1a73e8;
-      margin-bottom: 10px;
-    }
-    .body-btn-group {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .body-btn-group label {
-      flex: 1;
-      min-width: 44px;
-      cursor: pointer;
-    }
-    .body-btn-group input[type="radio"] { display: none; }
-    .body-btn-group .btn-face {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 4px 6px;
-      border: 2px solid #d0e2ff;
-      border-radius: 8px;
+    /* ── Section card ── */
+    .section-card {
       background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .section-title {
+      background: #c0392b;
+      color: #fff;
+      padding: 12px 20px;
       font-size: 1rem;
       font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Score table ── */
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .score-table th {
+      background: #f9f0f0;
       color: #555;
-      line-height: 1.2;
-      transition: all .15s;
+      padding: 10px 8px;
       text-align: center;
+      font-weight: 600;
+      border-bottom: 2px solid #f0d8d8;
+      white-space: nowrap;
     }
-    .body-btn-group .btn-hint {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: #999;
-      margin-top: 3px;
+    .score-table th.q-th { text-align: left; padding-left: 16px; }
+    .score-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #f5f5f5;
+      vertical-align: middle;
     }
-    .body-btn-group input[type="radio"]:checked + .btn-face {
-      background: #1a73e8;
-      border-color: #1a73e8;
-      color: #fff;
+    .score-table td.q-td {
+      padding-left: 16px;
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
-    .body-btn-group input[type="radio"]:checked + .btn-face .btn-hint {
-      color: #c8dcff;
-    }
-    .body-btn-group label:hover .btn-face {
-      border-color: #1a73e8;
-      background: #e8f0fe;
-    }
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-table tr:hover td { background: #fff5f5; }
 
-    /* Scale legend */
-    .scale-legend {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 4px;
-      margin-bottom: 16px;
-      font-size: 0.78rem;
-      text-align: center;
-    }
-    .scale-legend .sl-item {
-      padding: 6px 4px;
-      border-radius: 6px;
-      line-height: 1.3;
-    }
-    .sl-0 { background: #e6ffe6; color: #2a7a2a; }
-    .sl-1 { background: #d4edda; color: #155724; }
-    .sl-2 { background: #fff3cd; color: #856404; }
-    .sl-3 { background: #ffe0b2; color: #bf5000; }
-    .sl-4 { background: #ffccbc; color: #b71c1c; }
-    .sl-5 { background: #ffcdd2; color: #8b0000; }
-    .sl-num { font-weight: 700; font-size: 1rem; }
-
-    /* Body diagram SVG area */
-    .body-diagram {
-      display: flex;
-      justify-content: center;
-      margin: 12px 0 20px;
-    }
-    .body-diagram svg { max-width: 100%; height: auto; }
-
-    /* Alert/info box */
-    .info-box {
-      background: #fff8e1;
-      border-left: 4px solid #f9a825;
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 0.88rem;
-      color: #5d4037;
-      margin-bottom: 14px;
-      line-height: 1.6;
-    }
-
-    /* Hidden section */
-    .conditional-section { display: none; }
-    .conditional-section.visible { display: block; }
-
-    /* Submit area */
-    .submit-area {
-      display: flex;
-      gap: 16px;
+    /* Radio option cell */
+    .opt-cell { text-align: center; }
+    .opt-cell label {
+      display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      margin-top: 24px;
-      padding: 0 4px;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: #666;
+      padding: 4px;
+    }
+    .opt-cell input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #c0392b;
+      cursor: pointer;
+    }
+    .opt-score {
+      font-size: 0.75rem;
+      color: #999;
+      font-weight: 600;
+    }
+
+    /* Totals row */
+    .totals-row td {
+      background: #fef9f9;
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #444;
+    }
+    .score-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .score-val {
+      background: #c0392b;
+      color: #fff;
+      border-radius: 20px;
+      padding: 3px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    /* Interpretation */
+    .interp-box {
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      line-height: 2;
+      color: #444;
+      border-top: 1px solid #f0e0e0;
+      background: #fffafa;
+    }
+    .interp-box span.lv {
+      font-weight: 700;
+      padding: 1px 8px;
+      border-radius: 4px;
+      margin: 0 2px;
+    }
+    .lv-low { background: #e8f5e9; color: #2e7d32; }
+    .lv-mid { background: #fff8e1; color: #f57f17; }
+    .lv-high { background: #fce4ec; color: #b71c1c; }
+
+    /* Result banner */
+    .result-banner {
+      display: none;
+      margin: 0 0 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .result-banner.show { display: block; }
+    .result-header {
+      background: #c0392b;
+      color: #fff;
+      padding: 14px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .result-body { background: #fff; padding: 20px 24px; }
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .result-item:last-child { border-bottom: none; }
+    .result-label { font-size: 0.95rem; color: #444; font-weight: 600; }
+    .result-score-big {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #c0392b;
+    }
+    .result-level {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-left: 12px;
+    }
+    .result-note { font-size: 0.85rem; color: #666; margin-top: 6px; }
+    .result-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
+
+    /* Sending status */
+    .send-status {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .send-status.ok { background: #e6f4ea; color: #2e7d32; }
+    .send-status.err { background: #fce4ec; color: #b71c1c; }
+    .send-status.sending { background: #e3f2fd; color: #1565c0; }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 8px;
+      flex-wrap: wrap;
     }
     .btn-submit {
-      background: #1a73e8;
+      background: #c0392b;
       color: #fff;
       border: none;
-      border-radius: 6px;
-      padding: 12px 36px;
+      border-radius: 8px;
+      padding: 13px 40px;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: background .2s, transform .1s;
+      font-family: inherit;
     }
-    .btn-submit:hover { background: #1557b0; }
+    .btn-submit:hover { background: #962d22; }
     .btn-submit:active { transform: scale(0.98); }
     .btn-clear {
       background: transparent;
-      color: #1a73e8;
-      border: 1px solid #1a73e8;
-      border-radius: 6px;
-      padding: 12px 28px;
+      color: #c0392b;
+      border: 2px solid #c0392b;
+      border-radius: 8px;
+      padding: 11px 28px;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.2s;
+      font-family: inherit;
+      transition: background .2s;
     }
-    .btn-clear:hover { background: #e8f0fe; }
+    .btn-clear:hover { background: #fce4ec; }
 
-    /* Success message */
-    #success-msg {
-      display: none;
-      background: #e6f4ea;
-      border: 1px solid #b7dfbf;
-      border-radius: 10px;
-      padding: 28px;
+    .source-note {
       text-align: center;
-      color: #2e7d32;
-      font-size: 1.05rem;
-      margin-top: 20px;
-    }
-    #success-msg h2 { font-size: 1.4rem; margin-bottom: 8px; }
-
-    /* Print */
-    @media print {
-      body { background: #fff; padding: 0; }
-      .btn-submit, .btn-clear { display: none; }
-      .card { box-shadow: none; border: 1px solid #ddd; }
+      font-size: 0.82rem;
+      color: #999;
+      margin-top: 16px;
     }
 
-    .divider { height: 1px; background: #eee; margin: 8px 0 16px; }
+    /* Highlight selected row */
+    .score-table tr.answered td { background: #fff8f8; }
+
+    @media (max-width: 560px) {
+      .opt-cell label { font-size: 0.75rem; }
+      .score-table th, .score-table td { padding: 8px 4px; }
+      .score-table td.q-td { padding-left: 10px; }
+      .header-card { padding: 20px 16px; }
+      .info-row { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
-<div class="page-wrapper">
+<div class="page">
 
   <!-- Header -->
   <div class="header-card">
-    <div class="header-card-body">
-      <h1>建昇科技有限公司<br>健康保護－肌肉骨骼症狀問卷</h1>
-      <p>本問卷依據人因性危害預防設計，填答結果僅供內部健康管理使用，請依照您近期的實際感受，選擇最符合的選項。</p>
-      <p class="required-note">* 表示必填問題</p>
+    <h1>建昇科技有限公司－過勞量表問卷</h1>
+    <div class="info-row">
+      <div class="info-field">
+        <label>站名：</label>
+        <input type="text" id="site" placeholder="請輸入" required>
+      </div>
+      <div class="info-field">
+        <label>姓名：</label>
+        <input type="text" id="uname" placeholder="請輸入" required>
+      </div>
+      <div class="info-field">
+        <label>填表日期：</label>
+        <div class="date-group">
+          <input type="number" class="y" id="dy" placeholder="年" min="2020" max="2099">年
+          <input type="number" class="md" id="dm" placeholder="月" min="1" max="12">月
+          <input type="number" class="md" id="dd" placeholder="日" min="1" max="31">日
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Result banner (shown after submit) ── -->
+  <div class="result-banner" id="resultBanner">
+    <div class="result-header">✅ 您的過勞評估結果</div>
+    <div class="result-body">
+      <div class="result-item">
+        <div>
+          <div class="result-label">個人相關過勞分量表</div>
+          <div class="result-note" id="personalNote"></div>
+        </div>
+        <div style="text-align:right">
+          <span class="result-score-big" id="personalScoreDisp">—</span>
+          <span class="result-level" id="personalLevel"></span>
+        </div>
+      </div>
+      <div class="result-item">
+        <div>
+          <div class="result-label">工作相關過勞分量表</div>
+          <div class="result-note" id="workNote"></div>
+        </div>
+        <div style="text-align:right">
+          <span class="result-score-big" id="workScoreDisp">—</span>
+          <span class="result-level" id="workLevel"></span>
+        </div>
+      </div>
     </div>
   </div>
 
   <form id="mainForm" novalidate>
 
-    <!-- ── 基本資料 ── -->
-    <div class="card section-header">
-      <h2>基本資料</h2>
-    </div>
-
-    <div class="card">
-      <div class="grid-2">
-        <div>
-          <label class="q-label" for="site">站名 <span class="req">*</span></label>
-          <input type="text" id="site" name="site" placeholder="請輸入站名" required>
-        </div>
-        <div>
-          <label class="q-label" for="name">姓名 <span class="req">*</span></label>
-          <input type="text" id="name" name="name" placeholder="請輸入姓名" required>
-        </div>
-        <div>
-          <label class="q-label">職稱 <span class="req">*</span></label>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
-              <input type="radio" name="title" value="加油員" required style="width:18px;height:18px;accent-color:#1a73e8"> 加油員
-            </label>
-            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
-              <input type="radio" name="title" value="洗車人員" style="width:18px;height:18px;accent-color:#1a73e8"> 洗車人員
-            </label>
-            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:0.95rem;transition:all .15s" onclick="this.style.borderColor='#1a73e8';this.style.background='#e8f0fe'">
-              <input type="radio" name="title" value="咖啡銷售人員" style="width:18px;height:18px;accent-color:#1a73e8"> 咖啡銷售人員
-            </label>
-          </div>
-        </div>
-        <div>
-          <label class="q-label" for="fillDate">填表日期 <span class="req">*</span></label>
-          <input type="date" id="fillDate" name="fillDate" required>
-        </div>
-        <div>
-          <label class="q-label" for="age">年齡（歲）<span class="req">*</span></label>
-          <input type="number" id="age" name="age" min="16" max="80" placeholder="請輸入年齡" required>
-        </div>
-        <div>
-          <label class="q-label" for="seniority">在本公司的工作年資（年）<span class="req">*</span></label>
-          <input type="number" id="seniority" name="seniority" min="0" max="60" placeholder="請輸入年資" required>
-        </div>
-        <div>
-          <label class="q-label" for="height">身高（公分）<span class="req">*</span></label>
-          <input type="number" id="height" name="height" min="100" max="220" placeholder="例如：165" required>
-        </div>
-        <div>
-          <label class="q-label" for="weight">體重（公斤）<span class="req">*</span></label>
-          <input type="number" id="weight" name="weight" min="30" max="200" placeholder="例如：65" required>
-        </div>
+    <!-- ── 個人相關過勞分量表 ── -->
+    <div class="section-card">
+      <div class="section-title">個人相關過勞分量表</div>
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th class="q-th" style="width:46%">題目</th>
+            <th>總是<br><span class="opt-score">100</span></th>
+            <th>常常<br><span class="opt-score">75</span></th>
+            <th>有時候<br><span class="opt-score">50</span></th>
+            <th>不常<br><span class="opt-score">25</span></th>
+            <th>無<br><span class="opt-score">0</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="p1row">
+            <td class="q-td">1. 你常覺得疲勞嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p1" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p1" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p1" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p1" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p1" value="0">無</label></td>
+          </tr>
+          <tr id="p2row">
+            <td class="q-td">2. 你常覺得身體上體力透支嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p2" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p2" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p2" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p2" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p2" value="0">無</label></td>
+          </tr>
+          <tr id="p3row">
+            <td class="q-td">3. 你常覺得情緒上心力交瘁嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p3" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p3" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p3" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p3" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p3" value="0">無</label></td>
+          </tr>
+          <tr id="p4row">
+            <td class="q-td">4. 你常會覺得，「我快要撐不下去了」嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p4" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p4" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p4" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p4" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p4" value="0">無</label></td>
+          </tr>
+          <tr id="p5row">
+            <td class="q-td">5. 你常覺得精疲力竭嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p5" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p5" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p5" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p5" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p5" value="0">無</label></td>
+          </tr>
+          <tr id="p6row">
+            <td class="q-td">6. 你常常覺得虛弱，好像快要生病了嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="p6" value="100">總是</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p6" value="75">常常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p6" value="50">有時候</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p6" value="25">不常</label></td>
+            <td class="opt-cell"><label><input type="radio" name="p6" value="0">無</label></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="totals-row" colspan="6">
+              <div class="score-display">
+                自我篩檢總分：<span id="pRaw">—</span> ÷ 6 ＝ <span class="score-val" id="pScore">—</span> 分
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="interp-box">
+        <strong>結果說明：</strong><br>
+        <span class="lv lv-low">50分以下【輕微】</span>請不用過於擔心，建議維持良好生活作息。<br>
+        <span class="lv lv-mid">50～70分【中等】</span>建議您找出生活壓力源，進一步調適自己，增加放鬆與休息時間。<br>
+        <span class="lv lv-high">70分以上【嚴重】</span>建議您適度改變生活方式，增加運動與休閒時間，並進一步找醫護人員諮詢。
       </div>
     </div>
 
-    <!-- 慣用手 -->
-    <div class="card">
-      <label class="q-label">慣用手 <span class="req">*</span></label>
-      <div class="options-group inline">
-        <label class="opt-item">
-          <input type="radio" name="dominant_hand" value="左手" required> 左手
-        </label>
-        <label class="opt-item">
-          <input type="radio" name="dominant_hand" value="右手"> 右手
-        </label>
+    <!-- ── 工作相關過勞分量表 ── -->
+    <div class="section-card">
+      <div class="section-title">工作相關過勞分量表</div>
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th class="q-th" style="width:46%">題目</th>
+            <th>總是</th>
+            <th>常常</th>
+            <th>有時候</th>
+            <th>不常</th>
+            <th>無</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Q1–Q6: 總是=100, 常常=75, 有時候=50, 不常=25, 無=0 -->
+          <tr id="w1row">
+            <td class="q-td">1. 你的工作會令人情緒上心力交瘁嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w1" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w1" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w1" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w1" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w1" value="0">0</label></td>
+          </tr>
+          <tr id="w2row">
+            <td class="q-td">2. 你的工作會讓你覺得快要累垮了嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w2" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w2" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w2" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w2" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w2" value="0">0</label></td>
+          </tr>
+          <tr id="w3row">
+            <td class="q-td">3. 你的工作會讓你覺得挫折嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w3" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w3" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w3" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w3" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w3" value="0">0</label></td>
+          </tr>
+          <tr id="w4row">
+            <td class="q-td">4. 工作一整天之後，你覺得精疲力竭嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w4" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w4" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w4" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w4" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w4" value="0">0</label></td>
+          </tr>
+          <tr id="w5row">
+            <td class="q-td">5. 上班之前只要想到又要工作一整天，你就覺得沒力嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w5" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w5" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w5" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w5" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w5" value="0">0</label></td>
+          </tr>
+          <tr id="w6row">
+            <td class="q-td">6. 上班時你會覺得每一刻都很難熬嗎？</td>
+            <td class="opt-cell"><label><input type="radio" name="w6" value="100">100</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w6" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w6" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w6" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w6" value="0">0</label></td>
+          </tr>
+          <!-- Q7: 反向計分 無=100 → 總是=0 -->
+          <tr id="w7row" style="background:#fffdf0">
+            <td class="q-td">
+              7. 不工作的時候，你有足夠的精力陪朋友或家人嗎？
+              <span style="font-size:0.78rem;color:#c0392b;">（此題反向計分）</span>
+            </td>
+            <td class="opt-cell"><label><input type="radio" name="w7" value="0">0</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w7" value="25">25</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w7" value="50">50</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w7" value="75">75</label></td>
+            <td class="opt-cell"><label><input type="radio" name="w7" value="100">100</label></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="totals-row" colspan="6">
+              <div class="score-display">
+                自我篩檢總分：<span id="wRaw">—</span> ÷ 7 ＝ <span class="score-val" id="wScore">—</span> 分
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="interp-box">
+        <strong>結果說明：</strong><br>
+        <span class="lv lv-low">45分以下【輕微】</span>請繼續保持愉快的工作。<br>
+        <span class="lv lv-mid">45～60分【中等】</span>建議您可以放個假或做些喜歡的休閒娛樂適度放鬆自己。<br>
+        <span class="lv lv-high">60分以上【嚴重】</span>建議您適度改變生活方式，增加運動與休閒時間，並至職業醫學科門診諮詢。
       </div>
     </div>
 
-    <!-- ── 症狀篩查 ── -->
-    <div class="card section-header">
-      <h2>症狀篩查</h2>
+    <!-- Submit area -->
+    <div class="btn-row">
+      <button type="submit" class="btn-submit">✔ 送出問卷</button>
+      <button type="button" class="btn-clear" onclick="clearAll()">✕ 清除重填</button>
     </div>
-
-    <!-- 是否有不適 -->
-    <div class="card">
-      <label class="q-label">
-        您在過去的1年內，身體是否有長達2星期以上的疲勞、酸痛、發麻、刺痛等不舒服，或關節活動受到限制？<span class="req">*</span>
-        <span class="hint">若否，結束此調查表，可直接點選「提交」送出；若是，請繼續填寫下列表格</span>
-      </label>
-      <div class="options-group inline">
-        <label class="opt-item">
-          <input type="radio" name="has_symptom" value="是" id="sym_yes" required> 是
-        </label>
-        <label class="opt-item">
-          <input type="radio" name="has_symptom" value="否" id="sym_no"> 否
-        </label>
-      </div>
-    </div>
-
-    <!-- ── 條件顯示區域（有症狀才顯示）── -->
-    <div id="symptomSection" class="conditional-section">
-
-      <!-- 持續時間 -->
-      <div class="card">
-        <label class="q-label">身體部位酸痛、不適或影響關節活動之情形持多久時間？</label>
-        <div class="options-group">
-          <label class="opt-item"><input type="radio" name="duration" value="1個月"> 1個月</label>
-          <label class="opt-item"><input type="radio" name="duration" value="3個月"> 3個月</label>
-          <label class="opt-item"><input type="radio" name="duration" value="6個月"> 6個月</label>
-          <label class="opt-item"><input type="radio" name="duration" value="1年"> 1年</label>
-          <label class="opt-item"><input type="radio" name="duration" value="3年"> 3年</label>
-          <label class="opt-item"><input type="radio" name="duration" value="3年以上"> 3年以上</label>
-        </div>
-      </div>
-
-      <!-- 是否就醫 -->
-      <div class="card">
-        <label class="q-label">是否有就醫？</label>
-        <div class="options-group inline">
-          <label class="opt-item"><input type="radio" name="see_doctor" value="是"> 是</label>
-          <label class="opt-item"><input type="radio" name="see_doctor" value="否"> 否</label>
-        </div>
-      </div>
-
-      <!-- 是否使用止痛藥物 -->
-      <div class="card">
-        <label class="q-label">是否有使用止痛藥物？</label>
-        <div class="options-group inline">
-          <label class="opt-item"><input type="radio" name="use_medicine" value="否"> 否</label>
-          <label class="opt-item"><input type="radio" name="use_medicine" value="是"> 是</label>
-        </div>
-      </div>
-
-      <!-- 是否使用輔助用品 -->
-      <div class="card">
-        <label class="q-label">是否有使用輔助用品（護腰、護膝等）？</label>
-        <div class="options-group inline">
-          <label class="opt-item"><input type="radio" name="use_aid" value="否" id="aid_no"> 否</label>
-          <label class="opt-item"><input type="radio" name="use_aid" value="是" id="aid_yes"> 是</label>
-        </div>
-      </div>
-
-      <!-- 使用哪種輔助用品 -->
-      <div id="aidTypeSection" class="conditional-section">
-        <div class="card">
-          <label class="q-label">使用哪種輔助用品？<span class="hint">可複選</span></label>
-          <div class="options-group">
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="止痛藥"> 止痛藥</label>
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="酸痛貼布"> 酸痛貼布</label>
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="護腕"> 護腕</label>
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="護腰"> 護腰</label>
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="護膝"> 護膝</label>
-            <label class="opt-item"><input type="checkbox" name="aid_type" value="其他"> 其他</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 身體關節部位活動尺度 ── -->
-      <div class="card section-header">
-        <h2>身體關節部位活動尺度</h2>
-        <p>請依序填寫各身體部位的活動尺度（0＝不痛可自由活動，5＝完全無法自主活動）</p>
-      </div>
-
-      <!-- 圖示1 說明 -->
-      <div class="card">
-        <label class="q-label">圖示1．身體活動容忍尺度與關節活動範圍</label>
-        <div class="scale-legend">
-          <div class="sl-item sl-0"><div class="sl-num">0</div>不痛<br>可自由活動</div>
-          <div class="sl-item sl-1"><div class="sl-num">1</div>可以忍痛<br>到極限會酸痛</div>
-          <div class="sl-item sl-2"><div class="sl-num">2</div>可能影響工作<br>超過一半會酸痛</div>
-          <div class="sl-item sl-3"><div class="sl-num">3</div>影響工作<br>只能活動一半</div>
-          <div class="sl-item sl-4"><div class="sl-num">4</div>影響自主活動能力<br>只能活動四分之一</div>
-          <div class="sl-item sl-5"><div class="sl-num">5</div>完全無法<br>自主活動</div>
-        </div>
-
-        <!-- 圖示2 身體部位 (SVG示意圖) -->
-        <label class="q-label" style="margin-top:16px">圖示2．身體關節部位</label>
-        <div class="body-diagram">
-          <svg viewBox="0 0 400 460" width="400" xmlns="http://www.w3.org/2000/svg" style="border:1px solid #e0e0e0; border-radius:8px; background:#fafafa; padding:8px;">
-            <!-- Head -->
-            <ellipse cx="200" cy="52" rx="28" ry="32" fill="#f5d5b0" stroke="#999" stroke-width="1.5"/>
-            <!-- Neck -->
-            <rect x="190" y="82" width="20" height="20" rx="4" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Torso -->
-            <rect x="155" y="102" width="90" height="120" rx="10" fill="#d0e8ff" stroke="#999" stroke-width="1.5"/>
-            <!-- Left Arm upper -->
-            <rect x="115" y="105" width="38" height="22" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(10 134 116)"/>
-            <!-- Left forearm -->
-            <rect x="95" y="140" width="34" height="18" rx="7" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(20 112 149)"/>
-            <!-- Left hand -->
-            <ellipse cx="88" cy="170" rx="14" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Right Arm upper -->
-            <rect x="247" y="105" width="38" height="22" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(-10 266 116)"/>
-            <!-- Right forearm -->
-            <rect x="271" y="140" width="34" height="18" rx="7" fill="#f5d5b0" stroke="#999" stroke-width="1.2" transform="rotate(-20 288 149)"/>
-            <!-- Right hand -->
-            <ellipse cx="312" cy="170" rx="14" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Left leg upper -->
-            <rect x="158" y="222" width="36" height="80" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Left leg lower -->
-            <rect x="158" y="310" width="34" height="76" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Left foot -->
-            <ellipse cx="172" cy="396" rx="18" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Right leg upper -->
-            <rect x="206" y="222" width="36" height="80" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Right leg lower -->
-            <rect x="208" y="310" width="34" height="76" rx="8" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-            <!-- Right foot -->
-            <ellipse cx="228" cy="396" rx="18" ry="10" fill="#f5d5b0" stroke="#999" stroke-width="1.2"/>
-
-            <!-- Labels -->
-            <text x="200" y="42" text-anchor="middle" font-size="13" fill="#333" font-weight="600">頸部</text>
-            <text x="106" y="108" text-anchor="middle" font-size="12" fill="#1a73e8" font-weight="600">左肩</text>
-            <text x="294" y="108" text-anchor="middle" font-size="12" fill="#1a73e8" font-weight="600">右肩</text>
-            <text x="200" y="130" text-anchor="middle" font-size="12" fill="#555">上背</text>
-            <text x="200" y="185" text-anchor="middle" font-size="12" fill="#555">下背</text>
-            <text x="88" y="145" text-anchor="middle" font-size="12" fill="#1a73e8">左手肘<tspan x="88" dy="13">左前臂</tspan></text>
-            <text x="312" y="145" text-anchor="middle" font-size="12" fill="#1a73e8">右手肘<tspan x="312" dy="13">右前臂</tspan></text>
-            <text x="75" y="175" text-anchor="middle" font-size="12" fill="#1a73e8">左手<tspan x="75" dy="13">左手腕</tspan></text>
-            <text x="325" y="175" text-anchor="middle" font-size="12" fill="#1a73e8">右手<tspan x="325" dy="13">右手腕</tspan></text>
-            <text x="145" y="245" text-anchor="middle" font-size="12" fill="#1a73e8">左臀<tspan x="145" dy="13">左大腿</tspan></text>
-            <text x="255" y="245" text-anchor="middle" font-size="12" fill="#1a73e8">右臀<tspan x="255" dy="13">右大腿</tspan></text>
-            <text x="140" y="345" text-anchor="middle" font-size="12" fill="#1a73e8">左膝</text>
-            <text x="260" y="345" text-anchor="middle" font-size="12" fill="#1a73e8">右膝</text>
-            <text x="145" y="400" text-anchor="middle" font-size="12" fill="#1a73e8">左腳<tspan x="145" dy="13">左腳踝</tspan></text>
-            <text x="255" y="400" text-anchor="middle" font-size="12" fill="#1a73e8">右腳<tspan x="255" dy="13">右腳踝</tspan></text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Body parts button style -->
-      <div class="card">
-        <label class="q-label">請依序填寫各關節部位的活動尺度
-          <span style="font-size:0.82rem;font-weight:400;color:#777;display:block;margin-top:4px">點選數字：0＝不痛　1＝輕微　2＝可能影響工作　3＝影響工作　4＝影響自主活動　5＝無法活動</span>
-        </label>
-        <div class="body-list">
-
-          <div class="body-part-card">
-            <div class="body-part-name">1. 頸部</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_neck" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_neck" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_neck" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_neck" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_neck" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_neck" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">2. 左肩</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_shoulder" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_shoulder" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_shoulder" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_shoulder" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_shoulder" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_shoulder" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">3. 左手肘／左前臂</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_elbow" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_elbow" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_elbow" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_elbow" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_elbow" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_elbow" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">4. 左手／左手腕</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_wrist" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_wrist" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_wrist" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_wrist" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_wrist" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_wrist" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">5. 左臀／左大腿</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_hip" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_hip" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_hip" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_hip" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_hip" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_hip" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">6. 左膝</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_knee" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_knee" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_knee" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_knee" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_knee" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_knee" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">7. 左腳／左腳踝</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_left_ankle" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_left_ankle" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_left_ankle" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_left_ankle" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_left_ankle" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_left_ankle" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">8. 上背</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_upper_back" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_upper_back" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_upper_back" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_upper_back" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_upper_back" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_upper_back" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">9. 右肩</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_shoulder" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_shoulder" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_shoulder" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_shoulder" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_shoulder" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_shoulder" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">10. 右手肘／右前臂</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_elbow" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_elbow" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_elbow" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_elbow" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_elbow" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_elbow" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">11. 下背</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_lower_back" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_lower_back" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_lower_back" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_lower_back" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_lower_back" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_lower_back" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">12. 右手／右手腕</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_wrist" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_wrist" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_wrist" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_wrist" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_wrist" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_wrist" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">13. 右臀／右大腿</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_hip" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_hip" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_hip" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_hip" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_hip" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_hip" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">14. 右膝</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_knee" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_knee" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_knee" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_knee" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_knee" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_knee" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-          <div class="body-part-card">
-            <div class="body-part-name">15. 右腳／右腳踝</div>
-            <div class="body-btn-group">
-              <label><input type="radio" name="body_right_ankle" value="0"><div class="btn-face">0<span class="btn-hint">不痛</span></div></label>
-              <label><input type="radio" name="body_right_ankle" value="1"><div class="btn-face">1<span class="btn-hint">輕微</span></div></label>
-              <label><input type="radio" name="body_right_ankle" value="2"><div class="btn-face">2<span class="btn-hint">可能影響工作</span></div></label>
-              <label><input type="radio" name="body_right_ankle" value="3"><div class="btn-face">3<span class="btn-hint">影響工作</span></div></label>
-              <label><input type="radio" name="body_right_ankle" value="4"><div class="btn-face">4<span class="btn-hint">影響活動</span></div></label>
-              <label><input type="radio" name="body_right_ankle" value="5"><div class="btn-face">5<span class="btn-hint">無法活動</span></div></label>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- 其他症狀 -->
-      <div class="card">
-        <label class="q-label" for="other_symptoms">其他症狀／病史說明</label>
-        <textarea id="other_symptoms" name="other_symptoms" placeholder="請輸入其他症狀或病史說明（選填）"></textarea>
-      </div>
-
-    </div><!-- end symptomSection -->
-
-    <!-- Submit -->
-    <div class="submit-area">
-      <button type="submit" class="btn-submit">提交</button>
-      <button type="button" class="btn-clear" onclick="clearForm()">清除表單</button>
-    </div>
+    <div id="sendStatus" class="send-status" style="display:none"></div>
 
   </form>
 
-  <!-- Success -->
-  <div id="success-msg">
-    <h2>✓ 問卷已成功提交</h2>
-    <p>感謝您填寫本問卷，您的回覆已完成送出。</p>
-  </div>
+  <p class="source-note">（資料來源：勞安所過勞自我預防手冊）</p>
 
-</div><!-- end page-wrapper -->
+</div><!-- end page -->
 
 <script>
-  // Set today's date as default
-  document.getElementById('fillDate').valueAsDate = new Date();
+  // ── 設定今天日期 ──
+  var now = new Date();
+  document.getElementById('dy').value = now.getFullYear();
+  document.getElementById('dm').value = now.getMonth() + 1;
+  document.getElementById('dd').value = now.getDate();
 
-  // Show/hide symptom section based on has_symptom
-  document.querySelectorAll('input[name="has_symptom"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      var section = document.getElementById('symptomSection');
-      if (this.value === '是') {
-        section.classList.add('visible');
-      } else {
-        section.classList.remove('visible');
-      }
+  // ── 即時計算分數 ──
+  var pNames = ['p1','p2','p3','p4','p5','p6'];
+  var wNames = ['w1','w2','w3','w4','w5','w6','w7'];
+
+  function getVal(name) {
+    var el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? parseInt(el.value) : null;
+  }
+
+  function calcAndDisplay() {
+    // Personal
+    var pTotal = 0, pCount = 0;
+    pNames.forEach(function(n) {
+      var v = getVal(n);
+      if (v !== null) { pTotal += v; pCount++; }
+    });
+    if (pCount === 6) {
+      var pAvg = Math.round(pTotal / 6);
+      document.getElementById('pRaw').textContent = pTotal;
+      document.getElementById('pScore').textContent = pAvg;
+    } else {
+      document.getElementById('pRaw').textContent = '—';
+      document.getElementById('pScore').textContent = '—';
+    }
+
+    // Work
+    var wTotal = 0, wCount = 0;
+    wNames.forEach(function(n) {
+      var v = getVal(n);
+      if (v !== null) { wTotal += v; wCount++; }
+    });
+    if (wCount === 7) {
+      var wAvg = Math.round(wTotal / 7);
+      document.getElementById('wRaw').textContent = wTotal;
+      document.getElementById('wScore').textContent = wAvg;
+    } else {
+      document.getElementById('wRaw').textContent = '—';
+      document.getElementById('wScore').textContent = '—';
+    }
+  }
+
+  // Attach listeners
+  document.querySelectorAll('input[type="radio"]').forEach(function(r) {
+    r.addEventListener('change', function() {
+      // Highlight answered row
+      var row = this.closest('tr');
+      if (row) row.classList.add('answered');
+      calcAndDisplay();
     });
   });
 
-  // Show/hide aid type based on use_aid
-  document.querySelectorAll('input[name="use_aid"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      var section = document.getElementById('aidTypeSection');
-      if (this.value === '是') {
-        section.classList.add('visible');
-      } else {
-        section.classList.remove('visible');
-      }
-    });
-  });
+  // ── Level helpers ──
+  function personalLevel(score) {
+    if (score < 50) return { text: '輕微', cls: 'lv-low', note: '請不用過於擔心，建議維持良好生活作息。' };
+    if (score <= 70) return { text: '中等', cls: 'lv-mid', note: '建議找出生活壓力源，增加放鬆與休息時間。' };
+    return { text: '嚴重', cls: 'lv-high', note: '建議改變生活方式，增加運動休閒，並找醫護人員諮詢。' };
+  }
+  function workLevel(score) {
+    if (score < 45) return { text: '輕微', cls: 'lv-low', note: '請繼續保持愉快的工作。' };
+    if (score <= 60) return { text: '中等', cls: 'lv-mid', note: '建議放個假或做些喜歡的休閒娛樂適度放鬆。' };
+    return { text: '嚴重', cls: 'lv-high', note: '建議適度改變生活方式，並至職業醫學科門診諮詢。' };
+  }
 
-  // Form submission
+  // ── Form submit ──
   document.getElementById('mainForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Basic validation
-    var required = ['site', 'name', 'fillDate', 'age', 'seniority', 'height', 'weight'];
-    var valid = true;
-    required.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (!el.value.trim()) {
-        el.style.borderBottomColor = '#d93025';
-        valid = false;
-      } else {
-        el.style.borderBottomColor = '';
-      }
+    // Validate basic info
+    if (!document.getElementById('site').value.trim()) { alert('請填寫站號／名'); return; }
+    if (!document.getElementById('uname').value.trim()) { alert('請填寫姓名'); return; }
+
+    // Check all questions answered
+    var allP = pNames.every(function(n) { return getVal(n) !== null; });
+    var allW = wNames.every(function(n) { return getVal(n) !== null; });
+    if (!allP) { alert('請完整作答「個人相關過勞分量表」全部6題'); return; }
+    if (!allW) { alert('請完整作答「工作相關過勞分量表」全部7題'); return; }
+
+    // Calculate scores
+    var pTotal = pNames.reduce(function(s,n){ return s + getVal(n); }, 0);
+    var pAvg = Math.round(pTotal / 6);
+    var wTotal = wNames.reduce(function(s,n){ return s + getVal(n); }, 0);
+    var wAvg = Math.round(wTotal / 7);
+
+    var pLv = personalLevel(pAvg);
+    var wLv = workLevel(wAvg);
+
+    // Show result banner
+    document.getElementById('personalScoreDisp').textContent = pAvg + ' 分';
+    var pLvEl = document.getElementById('personalLevel');
+    pLvEl.textContent = '【' + pLv.text + '】';
+    pLvEl.className = 'result-level ' + pLv.cls;
+    document.getElementById('personalNote').textContent = pLv.note;
+
+    document.getElementById('workScoreDisp').textContent = wAvg + ' 分';
+    var wLvEl = document.getElementById('workLevel');
+    wLvEl.textContent = '【' + wLv.text + '】';
+    wLvEl.className = 'result-level ' + wLv.cls;
+    document.getElementById('workNote').textContent = wLv.note;
+
+    document.getElementById('resultBanner').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // ── Send to Google Sheets ──
+    // ★ 請將下面網址換成你自己新帳號部署 Apps Script 後拿到的 .../exec 網址
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyz7r_6Lh774wUqkaJMv3n6Iu2kGghtme51BaHaxtvP5_hlJXNNfl7aUzlh5R2snEFV/exec';
+
+    var payload = {
+      site: document.getElementById('site').value.trim(),
+      name: document.getElementById('uname').value.trim(),
+      date: document.getElementById('dy').value + '/' + document.getElementById('dm').value + '/' + document.getElementById('dd').value,
+      p1: getVal('p1'), p2: getVal('p2'), p3: getVal('p3'),
+      p4: getVal('p4'), p5: getVal('p5'), p6: getVal('p6'),
+      personalTotal: pTotal, personalScore: pAvg, personalLevel: pLv.text,
+      w1: getVal('w1'), w2: getVal('w2'), w3: getVal('w3'), w4: getVal('w4'),
+      w5: getVal('w5'), w6: getVal('w6'), w7: getVal('w7'),
+      workTotal: wTotal, workScore: wAvg, workLevel: wLv.text
+    };
+
+    if (SHEET_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+      // 尚未設定 URL，僅顯示結果
+      return;
+    }
+
+    var statusEl = document.getElementById('sendStatus');
+    statusEl.style.display = 'block';
+    statusEl.className = 'send-status sending';
+    statusEl.textContent = '⏳ 資料傳送中...';
+
+    var formData = new URLSearchParams();
+    Object.keys(payload).forEach(function(key) {
+      formData.append(key, payload[key]);
     });
 
-    if (!document.querySelector('input[name="title"]:checked')) {
-      alert('請選擇職稱');
-      valid = false;
-    }
-    if (!document.querySelector('input[name="dominant_hand"]:checked')) {
-      alert('請選擇慣用手');
-      valid = false;
-    }
-    if (!document.querySelector('input[name="has_symptom"]:checked')) {
-      alert('請回答過去1年內是否有不適症狀');
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    // Show success
-    document.getElementById('mainForm').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetch(SHEET_URL, {
+      method: 'POST',
+      body: formData
+    }).then(function(res) {
+      return res.text();
+    }).then(function(text) {
+      if (text.indexOf('OK') === 0) {
+        statusEl.className = 'send-status ok';
+        statusEl.textContent = '✅ 資料已成功寫入 Google Sheets！';
+      } else {
+        statusEl.className = 'send-status err';
+        statusEl.textContent = '⚠️ 傳送失敗：' + text;
+      }
+    }).catch(function(err) {
+      statusEl.className = 'send-status err';
+      statusEl.textContent = '⚠️ 傳送失敗，請通知管理員。（' + err.message + '）';
+    });
   });
 
-  function clearForm() {
-    if (confirm('確定要清除所有填寫內容嗎？')) {
+  function clearAll() {
+    if (confirm('確定清除所有填答內容？')) {
       document.getElementById('mainForm').reset();
-      document.getElementById('symptomSection').classList.remove('visible');
-      document.getElementById('aidTypeSection').classList.remove('visible');
-      document.getElementById('fillDate').valueAsDate = new Date();
-      // Reset border colors
-      document.querySelectorAll('input, select').forEach(function(el) {
-        el.style.borderBottomColor = '';
-      });
+      document.getElementById('resultBanner').classList.remove('show');
+      document.getElementById('sendStatus').style.display = 'none';
+      document.querySelectorAll('tr.answered').forEach(function(r){ r.classList.remove('answered'); });
+      document.getElementById('pRaw').textContent = '—';
+      document.getElementById('pScore').textContent = '—';
+      document.getElementById('wRaw').textContent = '—';
+      document.getElementById('wScore').textContent = '—';
+      // Reset date
+      var now = new Date();
+      document.getElementById('dy').value = now.getFullYear();
+      document.getElementById('dm').value = now.getMonth() + 1;
+      document.getElementById('dd').value = now.getDate();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 </script>
